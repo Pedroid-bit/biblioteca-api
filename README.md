@@ -56,43 +56,35 @@ Livro   1 ─── N Empréstimo
 
 ## Instalação
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+No PowerShell do Windows, na pasta do projeto:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
 ## Configuração do banco
 
-Crie um arquivo `.env` baseado no `.env.example`:
+A aplicação usa SQLite por padrão (`biblioteca.db`). Para preparar o banco pela
+primeira vez, aplique as migrations existentes:
 
-```bash
-cp .env.example .env
+```powershell
+alembic upgrade head
 ```
 
-Se quiser, também pode deixar `DATABASE_URL` padrão como:
+Não gere uma migration inicial novamente: ela já existe em
+`alembic/versions`. Depois de alterar os modelos, gere uma migration nova e
+aplique-a:
 
-```env
-DATABASE_URL=sqlite:///./biblioteca.db
-```
-
-## Migrações com Alembic
-
-Crie a migration:
-
-```bash
-alembic revision --autogenerate -m "create initial tables"
-```
-
-Aplique a migration:
-
-```bash
+```powershell
+alembic revision --autogenerate -m "descreva as alteracoes"
 alembic upgrade head
 ```
 
 ## Executar a aplicação
 
-```bash
+```powershell
 uvicorn app.main:app --reload
 ```
 

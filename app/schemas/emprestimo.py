@@ -26,4 +26,4 @@ class EmprestimoUpdate(BaseModel):
 
 class EmprestimoResponse(EmprestimoBase):
     id: int
-    modelo_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True)
